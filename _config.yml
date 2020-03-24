@@ -17,7 +17,7 @@ baseurl: ""
 title: Cingis Alexander
 
 # Short description of your site
-description: Rich Pauloo's nerd blog and scientific research page.
+description: Published R and Python notebooks.
 
 # --- Navigation bar options --- #
 
@@ -71,16 +71,16 @@ navbar-links:
 # Change all these values or delete the ones you don't want.
 # Important: you must keep the "name" parameter, everything else you can remove
 author:
-  name: Rich Pauloo
-  email: "richpauloo@gmail.com"
+  name: Cingis Alexander
+  email: "cingis.kratochvil@tum.de"
   facebook: yourname  # eg. daattali
-  github: richpauloo    # eg. daattali
-  twitter: "richpauloo"   # eg. daattali
+  github: CingisAlexander    # eg. daattali
+  twitter: yourname   # eg. daattali
   reddit: yourname    # eg. daattali
   google-plus: +yourname   # eg. +DeanAttali or 109424658772469020925
-  linkedin: richpauloo  # eg. daattali
+  linkedin: cingis-alexander-kratochvil  # eg. daattali
   xing: yourname      # eg. daattali
-  stackoverflow: "8367943/rich-pauloo"  # eg. "3943160/daattali"
+  #stackoverflow: yourname #"8367943/rich-pauloo"  # eg. "3943160/daattali"
   snapchat: yourname  # eg. daattali
   instagram: yourname # eg. daattali
   youtube: yourlink   # eg. user/daattali or channel/daattali
@@ -92,16 +92,16 @@ author:
 
 # Select which links to show in the footer
 footer-links-active:
-  rss: true
+  rss: false
   facebook: false
   email: true
-  twitter: true
+  twitter: false
   google-plus: false
   github: true
   reddit: false
   linkedin: true
   xing: false
-  stackoverflow: true
+  stackoverflow: false
   snapchat: false
   instagram: false
   youtube: false
@@ -113,7 +113,7 @@ footer-links-active:
 
 # Select which share links to show in posts
 share-links-active:
-  twitter: true
+  twitter: false
   facebook: true
   google: false
   linkedin: true
@@ -146,7 +146,7 @@ title-separator: "-"
 # --- Don't need to touch anything below here (but you can if you want) --- #
 
 # Output options (more information on Jekyll's site)
-timezone: "America/Vancouver"
+timezone: "Europe/Berlin"
 markdown: kramdown
 highlighter: rouge
 permalink: /:year-:month-:day-:title/
