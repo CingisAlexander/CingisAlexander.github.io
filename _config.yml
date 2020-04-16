@@ -1,3 +1,5 @@
+#To start it locally on you desktop machine please run: bundle exec jekyll serve
+
 # --- General options --- #
 
 # url is the full website URL
@@ -127,7 +129,7 @@ share-links-active:
 #disqus: "richpauloo"
 
 # Fill in your Google Analytics ID to track your website using GA
-#google_analytics: "UA-118594366-1"
+google_analytics: "UA-163837579-1"
 
 # Google Tag Manager ID
 #gtm: ""
