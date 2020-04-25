@@ -25,15 +25,15 @@ description: Published R and Python notebooks.
 
 # List of links in the navigation bar
 navbar-links:
-  About: "aboutme"
-  #Research: "research"
-  #Projects:
+  Read Me: "aboutme"
+  #Second Research: "aboutme copy"
+  Projects:
   #  - textme: "https://github.com/richpauloo/textme"
   #  - Domestic Well Vulnerability: "flexdash.html"
   #  - CA Well Completion Reports: "oswcr_1.html"
   #  - Predicting Fatal Landslides: "landslides.html"
     # Statistical Significance Tests: "stat.html" 
-  #  - Learning: "learn"
+    #- Learning: "learn"
     
   #Apps:
   #  - CCR: "https://caccr.github.io"

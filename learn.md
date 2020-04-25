@@ -1,7 +1,7 @@
 ---
-layout: page
+layout: "page"
 title: Self-Learning Resources
-subtitle: 
+subtitle: Trial
 show-avatar: false
 ---
 
