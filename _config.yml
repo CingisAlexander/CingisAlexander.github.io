@@ -34,6 +34,7 @@ navbar-links:
   #  - Predicting Fatal Landslides: "landslides.html"
     # Statistical Significance Tests: "stat.html" 
     #- Learning: "learn"
+    - Adjusting keras training loops: "adjusting_keras_loop"
     
   #Apps:
   #  - CCR: "https://caccr.github.io"
