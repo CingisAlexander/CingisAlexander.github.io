@@ -177,6 +177,6 @@ In the following we can see possible images and the pattern and images with the 
 <img src="/img/possible_output.JPG" alt="geo" width="500" height="500"/>
 </p>
 
-If you are interested for the complete code, then check out my [github repo](https://github.com/CingisAlexander/trigger_generation).
+If would like to see my complete code, then check out my [github repo](https://github.com/CingisAlexander/trigger_generation).
 
 I hope, I was able to explain you the power and simplicity of custom Keras training loops. And you will be able to apply it to your own projects!
