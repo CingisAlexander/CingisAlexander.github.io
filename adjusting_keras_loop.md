@@ -1,7 +1,7 @@
 ---
 layout: "page"
 title: Adjusting Keras training loops
-subtitle: There is still something to correct
+subtitle:
 show-avatar: false
 ---
 
