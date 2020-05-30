@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Explanation of Necesary Optimal Conditions in Constrained Optimization
+title: An Explanation of Necesary Optimal Conditions in Constrained Optimization
 mathjax: "true"
 
 #![test](/img/geo.png)
