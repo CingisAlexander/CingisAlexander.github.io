@@ -26,7 +26,7 @@ show-avatar: false
     2. [Updating Data](#subparagraph2)
     3. [Table Declaration & Inserting Data](#subparagraph3)
 3. [Recursive Queries](#paragraph2)
-
+4. [Grouping Sets, Rollup and Cube Aggregations](#paragraph2)
 
 ### Intro  <a name="intro"></a>
 In this project, I plan to add examples of SQL queries that cover different topics, for instance, recursive queries, window function.
@@ -125,3 +125,68 @@ where S = 1
 ```
 
 This example is based on a lecture for the course Einsatz und Realisierung von Datenbanksystemen held by Professor Kemper at the Technical University Munich.
+
+### Grouping Sets, Rollup and Cube Aggregations <a name="paragraph3"></a>
+Suppose a table that was created using the following declaration
+
+```sql
+Create Table smartphone_sales (
+	Brand Varchar(30)
+	Shop Varchar(30)
+	Year Int
+)
+```
+So, if a smartphone was sold, then we are going to enter the brand of the sold smartphone, in which shop the customer bought the smartphone and in which year happened the purchase. Of course, it would be more useful to enter instead of a year the exact date, but to understand the **aggregation operators** it is simpler to assume year instead of date.
+
+Now, we would like to discover:
+1. total amount of purchases per brand and year
+2. total amount of purchases per brand
+3. total amount of all purchases
+
+To obtain these results we can use three regarding output equivalent SQL queries.
+
+We could use the `group by` and `union all` to obtain all three requests:
+```sql
+-- first request:
+(select Brand, Year, count(*) as Sales
+from smartphone_sales
+group by Brand, Year)
+union all 
+-- second request:
+(select Brand, Null, count(*) as Sales
+from smartphone_sales
+group by Brand)
+union all 
+-- third request:
+(select Null, Null, count(*) as Sales
+from smartphone_sales);
+```
+However, it can be quite tedious to write every time all possible aggregations instead we can use `grouping sets`:
+
+```sql
+select Brand, Year, count(*) as Sales
+from smartphone_sales
+group by grouping sets ((Brand, Year), (Brand), ());
+```
+So, the `grouping sets` causes that SQL iterates the `group by` over $((Brand, Year),~(Brand),~())$. 
+
+The tuple $((Brand, Year),~(Brand),~())$ obtains a sequence that goes from very specific overview $(Brand,~Year)$ to the global overview $()$, i.e. $()$ stands for the overall amount of purchases. This type of transition from specific to global is called **roll-up**, and the opposite is called **drill-down**.
+
+The `grouping sets` is quite useful; however, it can be still tedious in case of a very specific overview with the goal to perform roll-up. Imagine determining all combinations for `grouping sets` to perform roll-up for $(Brand,~Shop,~Year)$. For this reason, SQL introduces the operation `rollup`:
+```sql
+select Brand, Year, count(*) as Sales
+from smartphone_sales
+group by rollup (Brand, Year);
+```
+
+Great! We now know how to solve the above requests. But, we are still curious and would like to discover:
+1. total amount of purchases per brand, shop
+2. total amount of purchases per brand, shop
+2. total amount of purchases per shop
+
+To solve these requests we can use `cube` operation:
+```sql
+select Brand, Shop, count(*) as Sales
+from smartphone_sales
+group by cube (Brand, Year);
+```
