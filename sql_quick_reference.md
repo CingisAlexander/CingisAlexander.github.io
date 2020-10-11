@@ -26,7 +26,8 @@ show-avatar: false
     2. [Updating Data](#subparagraph2)
     3. [Table Declaration & Inserting Data](#subparagraph3)
 3. [Recursive Queries](#paragraph2)
-4. [Grouping Sets, Rollup and Cube Aggregations](#paragraph2)
+4. [Grouping Sets, Rollup and Cube Aggregations](#paragraph3)
+5. [Window Functions](#paragraph4)
 
 ### Intro  <a name="intro"></a>
 In this project, I plan to add examples of SQL queries that cover different topics, for instance, recursive queries, window function.
@@ -131,10 +132,10 @@ Suppose a table that was created using the following declaration
 
 ```sql
 Create Table smartphone_sales (
-	Brand Varchar(30)
-	Shop Varchar(30)
+	Brand Varchar(30),
+	Shop Varchar(30),
 	Year Int
-)
+);
 ```
 So, if a smartphone was sold, then we are going to enter the brand of the sold smartphone, in which shop the customer bought the smartphone and in which year happened the purchase. Of course, it would be more useful to enter instead of a year the exact date, but to understand the **aggregation operators** it is simpler to assume year instead of date.
 
@@ -190,3 +191,74 @@ select Brand, Shop, count(*) as Sales
 from smartphone_sales
 group by cube (Brand, Year);
 ```
+
+### Window Functions <a name="paragraph4"></a>
+The following operations can be easily performed using window functions:
+- computing moving averages
+- computing cumulative sums
+- finding top k
+
+To understand the window functions, suppose that we add the following with clause to each query 
+```sql
+with smartphone_sales(Shop, Purchase_date, Purchase_price) as (
+values ('A', date '2019-10-20',323.8),
+('B', date '2018-06-24',500.20),
+('A', date '2019-09-01',600.99),
+('C', date '2019-01-05',250.90),
+('C', date '2018-07-18',400.90),
+('B', date '2019-03-27',360.90),
+ ('B', date '2019-07-20',760.90),
+('B',date '2018-03-05',189.99),
+('A',date '2018-06-09',198))
+```
+
+Now, we would like to know the cumulative amount of sold smartphones of each shop in the year 2019. To do this execute such a query:
+```sql
+select shop, purchase_date, count(Purchase_Price) over w as Cumulative_Amount_per_Shop -- over starts the window function
+from smartphone_sales
+where extract(year from purchase_date) = 2019
+window w as (partition by shop -- partition clause
+             order by purchase_date asc -- ordering clause
+			 rows between unbounded preceding -- framing clause
+			and current row);
+```
+The following picture nicely explains each clause in the syntax. The picture
+was taken from the course [**Foundations in Data Engineering**](https://db.in.tum.de/teaching/ws1819/foundationsde/?lang=de) from the slides [**Advanced SQL**](https://db.in.tum.de/teaching/ws1819/foundationsde/chapter3_updated.pdf?lang=de).
+
+<p align="center">
+<img src="/img/window_clauses.jpg" alt="geo" width="300" height="180"/>
+</p>
+
+To compute the running average price of sold smartphones that include the sold smartphones itself and a smartphone sold right after and before:
+```sql
+select shop, purchase_date, purchase_price, sum(purchase_price) over w as running_average -- over starts the window function
+from smartphone_sales
+window w as (order by purchase_date asc
+			 rows between 1 preceding
+			and 1 following);
+```
+
+To obtain a shop that had best revenues in 2019 we could use the rank() function:
+```sql
+select shop, revenue, rank() over w 
+from (select shop, sum(purchase_price) as revenue
+      from smartphone_sales
+      where extract(year from purchase_date) = 2019
+      group by shop)
+window w as (order by revenue desc);
+```
+Suppose shops A and B had in year the 2019 both the same highest revenue. So, the function `rank()` gives them both the same rank 1. If shop C had the second-largest revenue,
+then it will obtain rank 3 and not rank 2! If we instead want to obtain rank 2 we could use `dense_rank()`. 
+
+Now, add there still many other funcatinalities that provides the window function, but the goal of this project is to refresh basic functionalities of each sql topic
+
+change to sql_quick_refresh, does in english refrence make sense?
+
+Todos:
+- based on the images explain the window clauses
+- based on movig average once price and once amout explain the range and rows
+- explain the lag by computing the performance, and the lead
+- based on the amount of sold phones explain the rank(), dens_rank()
+
+perhaps introduce the Hyper DB
+
