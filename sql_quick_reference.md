@@ -30,12 +30,12 @@ show-avatar: false
 5. [Window Functions](#paragraph4)
 
 ### Intro  <a name="intro"></a>
-In this project, I plan to add examples of SQL queries that cover different topics, for instance, recursive queries, window function.
+In this project, I plan to add examples of SQL queries that cover different topics, for instance, recursive queries, the window function
 
-This is a living project, i.e. I will from time to time add new useful examples
+This is a living project, i.e. I will from time to time add new useful examples.
 
-#### To give credits
-The most of examples and SQL queries are based or taken from blog-posts or my university courses. I will at each section add also the corresponding reference so that in case of more interest you can read in more depth the corresponding reference.
+#### Acknowledgment
+The most of examples and SQL queries are based on or taken from other blog-posts or my university courses. I will at each section add also the corresponding reference so that in case of more interest you can read in more depth the corresponding reference.
 
 ### Table manipulation <a name="paragraph1"></a>
 Here we will look at how to delete, update data from a table, and how to declare a table and insert data into the table.

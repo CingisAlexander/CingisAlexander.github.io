@@ -19,13 +19,13 @@ show-avatar: false
 </script>
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-In this project, I would like to show how Keras training loops can be adjusted for custom cases. Adjusting training loops can be handy if you would like to implement your own layers for a neural network or an own loss function.
+In this project, I would like to show how Keras training loops can be adjusted for custom cases. Adjusting training loops can be handy if you would like to implement custom layers for a neural network or a custom loss function.
 
-So, here I will try to partially implement a very nice idea of the paper [Neural Cleanse: Identifying and Mitigating Backdoor Attacks in Neural Networks](https://sites.cs.ucsb.edu/~bolunwang/assets/docs/backdoor-sp19.pdf). The presented implementation is based on [Bolun Wang](https://github.com/bolunwang/backdoor)'s implementation, Bolun Wang is one of the authors of the above paper.
+So, here I will partially implement a very nice idea of the paper [Neural Cleanse: Identifying and Mitigating Backdoor Attacks in Neural Networks](https://sites.cs.ucsb.edu/~bolunwang/assets/docs/backdoor-sp19.pdf). The presented implementation is based on [Bolun Wang](https://github.com/bolunwang/backdoor)'s implementation, Bolun Wang is one of the authors of the above paper.
 
-The explanation of Keras' `get_update` and `function` functions is based on the excelente [Javier](https://towardsdatascience.com/keras-custom-training-loop-59ce779d60fb)'s article.
+The explanation of the Keras’  `get_update` and `function` unctions is based on [Javier](https://towardsdatascience.com/keras-custom-training-loop-59ce779d60fb)'s excellent article.
 
-In the first section, I will formally express the idea of the above paper how could certain patterns be revealed. In the second part, I will explain and show how the idea can be then implemented. Lastly, I will give a summary.
+This project is divided into two sections. In the first section, I will formally express the idea of the above paper of how certain patterns could be revealed. In the second part, I will explain and show how the idea can be implemented.
 
 ### First section
 Suppose a neural network $\mathcal{M}$ that classifies traffic signs, and a dataset $X = (x_1, \ldots, x_n)$, $Y = (y_1, \ldots, y_n)$ where $n$ represents number of samples, $x_i$ is a RGB image of a traffic sing of size $(32, 32, 3)$ and $y_i \in \[0, \ldots, 42\]$ represents the class of $x_i$. So, we have in total $43$ different traffic signs.
