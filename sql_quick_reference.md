@@ -35,7 +35,7 @@ In this project, I plan to add examples of SQL queries that cover different topi
 This is a living project, i.e. I will from time to time add new useful examples.
 
 #### Acknowledgment
-The most of examples and SQL queries are based on or taken from other blog-posts or my university courses. I will at each section add also the corresponding reference so that in case of more interest you can read in more depth the corresponding reference.
+The examples and SQL queries are based on or taken from other blog-posts or my university courses. Therefore, I will add to each section the corresponding reference.
 
 ### Table manipulation <a name="paragraph1"></a>
 Here we will look at how to delete, update data from a table, and how to declare a table and insert data into the table.
@@ -100,13 +100,15 @@ Create Table edges (
 	vertex_from INT,
 	vertex_to INT);
 ```
-This table models the edges of the below graph:
+This table models the edges of the following graph:
 <p align="center">
 <img src="/img/sql_queries_recursive.jpg" alt="geo" width="300" height="150"/>
 </p>
-So, the table contains for instance the entry: `(1,2)` because there is an edge coming from the vertex $1$ and going to the vertex $2$.
+The table contains for instance the entry: `(1,2)` because there is an edge coming from the vertex $1$ and going to the vertex $2$.
 
-Now, the goal is to figure out what everything we can reach by starting at the vertex $1$. To solve this problem we use recursive queries.
+Now, the goal is to figure out which vertices we can reach if we start at the vertex $1$. 
+
+To solve this problem we use the recursive queries.
 
 Firstly, we declare a `view` that will contain all possible paths. Then, we check out all paths starting at vertex $1$.
 ```sql
@@ -118,17 +120,17 @@ Create View paths(S, T) (
 	from edges, paths
 	where edges.vertex_to = paths.S));
 ```
-Find all paths starting at $1$.
+Finally, using the table `paths` we can list all vertices that are reachable from the vertex $1$.
 ```sql
 select S,T
 from paths
 where S = 1
 ```
 
-This example is based on a lecture for the course Einsatz und Realisierung von Datenbanksystemen held by Professor Kemper at the Technical University Munich.
+This example is based the course ["Einsatz und Realisierung von Datenbanksystemen"](https://db.in.tum.de/teaching/ss20/impldb/?lang=de).
 
 ### Grouping Sets, Rollup and Cube Aggregations <a name="paragraph3"></a>
-Suppose a table that was created using the following declaration
+Suppose a table that was created using the following declaration:
 
 ```sql
 Create Table smartphone_sales (
@@ -137,7 +139,7 @@ Create Table smartphone_sales (
 	Year Int
 );
 ```
-So, if a smartphone was sold, then we are going to enter the brand of the sold smartphone, in which shop the customer bought the smartphone and in which year happened the purchase. Of course, it would be more useful to enter instead of a year the exact date, but to understand the **aggregation operators** it is simpler to assume year instead of date.
+If a smartphone was sold, then we insert into the table `customers` the smartphone's brand, in which shop it was purchased, and the year of the purchase. Of course, it would be more useful to enter instead of a year the exact date, but to understand the **aggregation operators** it is simpler to consider only the year.
 
 Now, we would like to discover:
 1. total amount of purchases per brand and year
@@ -182,7 +184,7 @@ group by rollup (Brand, Year);
 
 Great! We now know how to solve the above requests. But, we are still curious and would like to discover:
 1. total amount of purchases per brand, shop
-2. total amount of purchases per brand, shop
+2. total amount of purchases per brand
 2. total amount of purchases per shop
 
 To solve these requests we can use `cube` operation:
