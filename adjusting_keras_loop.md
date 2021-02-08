@@ -23,18 +23,19 @@ In this project, I would like to show how Keras training loops can be adjusted f
 
 So, here I will partially implement a very nice idea of the paper [Neural Cleanse: Identifying and Mitigating Backdoor Attacks in Neural Networks](https://sites.cs.ucsb.edu/~bolunwang/assets/docs/backdoor-sp19.pdf). The presented implementation is based on [Bolun Wang](https://github.com/bolunwang/backdoor)'s implementation, Bolun Wang is one of the authors of the above paper.
 
-The explanation of the Keras’  `get_update` and `function` unctions is based on [Javier](https://towardsdatascience.com/keras-custom-training-loop-59ce779d60fb)'s excellent article.
+The explanation of the Keras’  `get_update` and `function` is based on [Javier](https://towardsdatascience.com/keras-custom-training-loop-59ce779d60fb)'s excellent article.
 
 This project is divided into two sections. In the first section, I will formally express the idea of the above paper of how certain patterns could be revealed. In the second part, I will explain and show how the idea can be implemented.
 
 ### First section
 Suppose a neural network $\mathcal{M}$ that classifies traffic signs, and a dataset $X = (x_1, \ldots, x_n)$, $Y = (y_1, \ldots, y_n)$ where $n$ represents number of samples, $x_i$ is a RGB image of a traffic sing of size $(32, 32, 3)$ and $y_i \in \[0, \ldots, 42\]$ represents the class of $x_i$. So, we have in total $43$ different traffic signs.
 
-Now, we would like to add some constant noise (also called _patern_) $p$ of size $(32, 32, 3)$ to an input $x_i$ so that our model $\mathcal{M}$ classifies the input with high probability as a predefined class. So, pattern $p$ causes that all inputs are going to be likely classified into one class. For instance, we would that all samples should be classified as class $y = 33$ if the pattern $p$ is added to the image.
+Now, suppose there exist a  constant noise (also called *pattern*) $p$ of size $(32, 32, 3)$ with the following property:<br>
+If the pattern is added to an image, then it causes that the image is with a high probability classified as class $y = 33$, for instance.
 
 The questions are:
 - how can we find such a pattern $p$?
-- what do we mean by _add_ $p$ to an image? 
+- what do we mean by *add* $p$ to an image? 
 
 To answer the above questions, we need to introduce a mask $m$ of size $(32, 32, 3)$.
 
@@ -48,7 +49,7 @@ $$
 
 where all operations are defined as element-wise operations. The mask $m$ defines the intensity of the pattern $p$ in the image $x_i$.
 
-To find a pattern that does the job we use the following optimization:
+To find a pattern that does the job we can use the following optimization:
 
 $$
     \begin{align}
@@ -177,10 +178,10 @@ In the following we can see possible images and the pattern and images with the 
 <img src="/img/possible_output.JPG" alt="geo" width="500" height="500"/>
 </p>
 
-As you can see there is a some trigger in the lower right corner in all images, and that is because the model `model_m` was trained on images that in some cases contained in the right lower corner some sort of trigger. 
+As you can see there is a trigger in the lower right corner in all images, and that is because the model `model_m` was trained on images that in some cases contained in the right lower corner some sort of a trigger. 
 
 What this trigger has caused was that the model `model_m` almost always classified the traffic sign to belong to class $33$. For this reason, using the above optimization-procedure we could check if such triggers are present in our models.
 
-If you would like to see my complete code, then check out my [github repo](https://github.com/CingisAlexander/trigger_generation).
+If you would like to see my complete code, then check my [github repo](https://github.com/CingisAlexander/trigger_generation).
 
 I hope, I was able to explain to you the power and simplicity of custom Keras training loops. And you will be able to apply it to your projects!
