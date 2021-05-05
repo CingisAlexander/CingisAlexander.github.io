@@ -260,7 +260,7 @@ With the above query, we determined the cumulative amount of sold smartphones in
 The following figure, taken from the slides [**Advanced SQL**](https://db.in.tum.de/teaching/ws1819/foundationsde/chapter3_updated.pdf?lang=de) presented in the course [**Foundations in Data Engineering**](https://db.in.tum.de/teaching/ws1819/foundationsde/?lang=de), nicely explains each clause: partition, ordering, and framing clause that were used in the above query.
 
 <p align="center">
-<img src="/img/window_clauses.jpg" alt="geo" width="300" height="180"/>
+<img src="/img/window_clauses.JPG" alt="geo" width="300" height="180"/>
 </p>
 
 The following query computes the running average price of sold smartphones that include the sold smartphones themselves and a smartphone sold right after and before.
