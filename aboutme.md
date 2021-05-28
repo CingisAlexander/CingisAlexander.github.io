@@ -8,7 +8,7 @@ show-avatar: false
 <img src="/img/profile.jfif" alt="geo" width="300" height="300"/>
 </p>
 
-My name is Cingis (read "Chingis") and I study at the Technical University of Munich the master program: Mathematics in Data Science. And additionally, to my studies, I was able to obtain industry experiences in data science at companies such as  Allianz or Capgemini.
+My name is Cingis (read "Chingis") and I studied at the Technical University of Munich the master program: Mathematics in Data Science. And additionally, to my studies, I was able to obtain industry experiences in data science at companies such as  Allianz or Capgemini.
 
 To my interest in data science belongs robust machine learning (ML) and explainable artificial intelligence (XAI). I believe, that these two disciplines belong to the key factors in the successful deployment of ML in diverse industries. 
 
